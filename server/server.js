@@ -100,13 +100,9 @@ app.use((err, req, res, next) => {
 });
 
 
-// React build folder se static files serve karo
-app.use(express.static(path.join(__dirname, 'build')));
-
-// Catch-all handler: agar koi API route match nahi karta,
-// toh React app ke index.html ko bhej do
+app.use(express.static(path.join(__dirname, 'dist'))); // agar folder dist hai
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // Server start karna
