@@ -99,7 +99,17 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Something went wrong!' });
 });
 
-// Start Express server
+
+// React build folder se static files serve karo
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Catch-all handler: agar koi API route match nahi karta,
+// toh React app ke index.html ko bhej do
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+// Server start karna
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
